@@ -1,6 +1,6 @@
 {
-	"mods": "/home/wand_crafter/Noita/mods",
-	"workshop": "/home/wand_crafter/Steam/steamapps/workshop/content/881100",
+	"mods": "~/.local/share/Steam/steamapps/common/Noita/mods",
+	"workshop": "~/.local/share/Steam/steamapps/workshop/content/881100",
 	"verbose": false,
 	"enabled": false
 }

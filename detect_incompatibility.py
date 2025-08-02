@@ -62,6 +62,8 @@ for field in default_config.items():
     if getattr(parsed, field[0]) is None:
         setattr(parsed, field[0], field[1])
 
+print(parsed)
+
 
 def empty_to_none(value: str) -> Optional[str]:
     if value == "":
@@ -70,8 +72,8 @@ def empty_to_none(value: str) -> Optional[str]:
 
 
 args = Arguments(
-    workshop=fmap(Path, empty_to_none(parsed.workshop)),
-    mods=fmap(Path, empty_to_none(parsed.mods)),
+    workshop=fmap(Path, fmap(os.path.expanduser, empty_to_none(parsed.workshop))),
+    mods=fmap(Path, fmap(os.path.expanduser, empty_to_none(parsed.mods))),
     verbose=parsed.verbose,
     enabled=parsed.enabled,
 )
@@ -82,9 +84,9 @@ if args.verbose:
 
 
 def require_dir(path: Path, suffix: str, kind: str):
-    assert path.is_dir(), f"{kind} must be a mods dir"
+    assert path.is_dir(), f"{kind} must be a mods dir, '{path}' isn't"
     if path.name != suffix:
-        warn(f"{kind} dir will usually end in {suffix}")
+        warn(f"{kind} dir will usually end in {suffix}, '{path}' doesn't")
 
 
 for path, suffix, kind in [(args.mods, "mods", "Mods")]:
